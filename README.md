@@ -8,4 +8,5 @@ It works with all image types (RGB, 32 Bit, 16 Bit, 8 Bit).
 
 This plugin was developed within the scope of a study work of Pascal Behnel and is maintained by Thorsten Wagner (Both are members of the Biomedical Imaging Group).
 
+Fore more information please visit http://fiji.sc/Non_Local_Means_Denoise
 
