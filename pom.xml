@@ -3,14 +3,27 @@
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
- 
+
 	<groupId>de.biomedical-imaging.imagej</groupId>
 	<artifactId>ij_nl_means</artifactId>
 	<version>1.4.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
- 
+  
+ 	<parent>
+		<groupId>net.imagej</groupId>
+		<artifactId>pom-imagej</artifactId>
+		<version>7.0.0</version>
+		<relativePath />
+	</parent>
+	
 	<name>Non local means filter for for ImageJ</name>
 	<url>https://github.com/jumpfunky/ij-nl-means</url>
+	
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/thorstenwagner/ij-nl-means/issues</url>
+	</issueManagement>
+	
  	<dependencies>
 		<dependency>
    	 		<groupId>net.imagej</groupId>
@@ -23,6 +36,24 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<id>twagner</id>
 			<name>Thorsten Wagner</name>
 			<email>wagner@biomedical-imaging.de</email>
+			<organization>University of Applied Sciences and Arts Dortmund</organization>
+			<organizationUrl>www.biomedical-imaging.de</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<properties>
+				<active>true</active>
+			</properties>
+		</developer>
+		<developer>
+			<id>twagner</id>
+			<name>Pascal Behnel</name>
+			<email>pascal.behnel@googlemail.com></email>
+			<organization>University of Applied Sciences and Arts Dortmund</organization>
+			<organizationUrl>www.biomedical-imaging.de</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
 			<properties>
 				<active>true</active>
 			</properties>
