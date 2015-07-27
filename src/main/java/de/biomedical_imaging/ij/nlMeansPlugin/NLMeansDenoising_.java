@@ -94,6 +94,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
 //        gd.addNumericField("Window Height", 512, 0);
         gd.addNumericField("Smoothing_Factor", 1, 0);
         gd.addCheckbox("Auto estimate sigma", false);
+        gd.addHelp("http://fiji.sc/Non_Local_Means_Denoise");
         gd.showDialog();
         if (gd.wasCanceled()) {
             return -1;
@@ -509,7 +510,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
                 fp = sp.duplicate().convertToFloatProcessor();
                 break;
             case ImagePlus.GRAY32:
-                fp = (FloatProcessor) imp.getProcessor();
+                fp = (FloatProcessor) imp.getProcessor().duplicate();
                 break;
             case ImagePlus.GRAY8:
                 bp = (ByteProcessor) imp.getProcessor();
