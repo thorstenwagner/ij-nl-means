@@ -102,7 +102,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
         constantSigma = (int)gd.getNextNumber();
         smoothingFactor = (int)gd.getNextNumber();
         autoEstimate = gd.getNextBoolean();
-        usedSigmas = new int[imp.getNSlices()];
+        usedSigmas = new int[imp.getNSlices()*imp.getNFrames()];
         return IJ.setupDialog(imp, DOES_ALL+FINAL_PROCESSING);
     }
     
@@ -111,7 +111,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
         int sigma = constantSigma;
         if (autoEstimate) {
             sigma = (int)getGlobalNoiseLevel(new ImagePlus(null, ip));
-        }
+        } 
         usedSigmas[ip.getSliceNumber()-1] =sigma; 
         sigma = smoothingFactor*sigma;
         
