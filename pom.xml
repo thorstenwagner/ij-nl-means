@@ -11,7 +11,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	</parent>
 	<groupId>de.biomedical-imaging.imagej</groupId>
 	<artifactId>ij_nl_means</artifactId>
-	<version>1.4.3-SNAPSHOT</version>
+	<version>1.4.3</version>
 	<packaging>jar</packaging>
   
  	
@@ -28,7 +28,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<dependency>
    	 		<groupId>net.imagej</groupId>
    	 		<artifactId>ij</artifactId>
-  	 		<version>1.49r</version>
+  	 		<version>1.50e</version>
 		</dependency>
 	</dependencies>
 	<developers>

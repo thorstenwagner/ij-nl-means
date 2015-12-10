@@ -15,9 +15,22 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 package de.biomedical_imaging.ij.nlMeansPlugin;
-
-
-
+/**
+ * Non local means filter for ImageJ
+ * Copyright (C) 2013  Pascal Behnel & Thorsten Wagner
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+*/
 
 import ij.IJ;
 import ij.ImagePlus;
@@ -25,7 +38,6 @@ import ij.Prefs;
 import ij.gui.GenericDialog;
 import ij.plugin.filter.Convolver;
 import ij.plugin.filter.PlugInFilter;
-import static ij.plugin.filter.PlugInFilter.DOES_ALL;
 import ij.process.ByteProcessor;
 import ij.process.ColorProcessor;
 import ij.process.FloatProcessor;
@@ -149,8 +161,11 @@ public class NLMeansDenoising_ implements PlugInFilter {
                         imagePartHeight, 
                         ip.getWidth(), ip.getHeight(), false);
                 
+//                double[][] partResult = NLMeansMultithreadInstance(imagePartE, 
+//                        Runtime.getRuntime().availableProcessors(), imagePartWidth, 
+//                        imagePartHeight);
                 double[][] partResult = NLMeansMultithreadInstance(imagePartE, 
-                        Runtime.getRuntime().availableProcessors(), imagePartWidth, 
+                        1, imagePartWidth, 
                         imagePartHeight);
                 
                 // save Partial Result in Image
@@ -447,11 +462,12 @@ public class NLMeansDenoising_ implements PlugInFilter {
         for (int y = 0; y < heightE; y++) {
             int yr = y - w - n + ystart;
             if (yr < 0) yr = height + yr;
-            if (yr >= orgHeight) yr = ystart + yr - orgHeight;
+            
+            if (yr >= orgHeight) yr = (ystart - w - n) + yr - orgHeight;
             int offset = y * widthE;
             int offsetr = yr * orgWidth;
             for (int x = 0; x < widthE; x++) {
-                int xr = x - w - n + xstart;
+                int xr = x + (xstart - w - n);
                 if (xr < 0) xr = width + xr;
                 if (xr >= orgWidth) xr = xstart + xr - orgWidth;
                 for (int d = 0; d < dim; d++) {
@@ -949,4 +965,3 @@ public class NLMeansDenoising_ implements PlugInFilter {
         }
     }
 }
-
