@@ -1,6 +1,6 @@
-#ij-non-local means
+#Non local means for imagej
 
-IJNLMeans is an ImageJ Plugin for denosing images via the non-local-means algorithm descriped by Buades et al.: 
+ij-nl-means is an ImageJ plugin for denosing images via the non-local-means algorithm descriped by Buades et al.: 
 
 *A. Buades, B. Coll, and J.-M. Morel, “A Non-Local Algorithm for Image Denoising,” in 2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR’05), 2005, vol. 2, pp. 60–65.*
 
