@@ -8,5 +8,6 @@ including the changes proposed by
 
 *J. Darbon, A. Cunha, T. F. Chan, S. Osher, and G. J. Jensen, “Fast nonlocal filtering applied to electron cryomicroscopy,” in 2008 5th IEEE International Symposium on Biomedical Imaging: From Nano to Macro, 2008, pp. 1331–1334.*
 
-Fore more information please visit http://fiji.sc/Non_Local_Means_Denoise
+Fore more information please visit:
+http://fiji.sc/Non_Local_Means_Denoise
 
