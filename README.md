@@ -11,3 +11,5 @@ including the changes proposed by
 Fore more information please visit:
 http://fiji.sc/Non_Local_Means_Denoise
 
+How to cite:
+[![DOI](https://zenodo.org/badge/18649/thorstenwagner/ij-nl-means.svg)](https://zenodo.org/badge/latestdoi/18649/thorstenwagner/ij-nl-means)
