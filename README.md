@@ -1,4 +1,4 @@
-####Cite: [![DOI](https://zenodo.org/badge/18649/thorstenwagner/ij-nl-means.svg)](https://zenodo.org/badge/latestdoi/18649/thorstenwagner/ij-nl-means)
+##CITE: [![DOI](https://zenodo.org/badge/18649/thorstenwagner/ij-nl-means.svg)](https://zenodo.org/badge/latestdoi/18649/thorstenwagner/ij-nl-means)
 #Non local means for imagej
 
 ij-nl-means is an ImageJ plugin for denosing images via the non-local-means algorithm descriped by Buades et al.: 
