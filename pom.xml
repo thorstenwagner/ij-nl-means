@@ -1,7 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi=
-"http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.imagej</groupId>
@@ -11,7 +8,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	</parent>
 	<groupId>de.biomedical-imaging.imagej</groupId>
 	<artifactId>ij_nl_means</artifactId>
-	<version>1.4.4-SNAPSHOT</version>
+	<version>1.4.4</version>
 	<packaging>jar</packaging>
   
  	
@@ -53,7 +50,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<developer>
 			<id>pbehnel</id>
 			<name>Pascal Behnel</name>
-			<email>pascal.behnel@googlemail.com></email>
+			<email>pascal.behnel@googlemail.com&gt;</email>
 			<organization>University of Applied Sciences and Arts Dortmund</organization>
 			<organizationUrl>www.biomedical-imaging.de</organizationUrl>
 			<roles>
@@ -65,4 +62,8 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		</developer>
 	</developers>
 
+
+  <scm>
+    <tag>ij_nl_means-1.4.4</tag>
+  </scm>
 </project>
