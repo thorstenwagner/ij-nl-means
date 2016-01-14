@@ -1,12 +1,15 @@
-#ij-non-local means
+[![DOI](https://zenodo.org/badge/18649/thorstenwagner/ij-nl-means.svg)](https://zenodo.org/badge/latestdoi/18649/thorstenwagner/ij-nl-means)
+#Non local means for imagej
 
-IJNLMeans is an ImageJ Plugin for denosing images via the non-local-means algorithm descriped by Buades et al.: Antoni Buades, Bartomeu Coll, and Jean-Michel Morel, Non-Local Means Denoising, Image Processing On Line, vol. 2011. including the changes proposed by "FAST NONLOCAL FILTERING APPLIED TO ELECTRON CRYOMICROSCOPY" By Darbon et al.
+ij-nl-means is an ImageJ plugin for denosing images via the non-local-means algorithm descriped by Buades et al.: 
 
-It is numerically optimized and multithreaded.
+*A. Buades, B. Coll, and J.-M. Morel, “A Non-Local Algorithm for Image Denoising,” in 2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR’05), 2005, vol. 2, pp. 60–65.*
 
-It works with all image types (RGB, 32 Bit, 16 Bit, 8 Bit).
+including the changes proposed by 
 
-This plugin was developed within the scope of a study work of Pascal Behnel and is maintained by Thorsten Wagner (Both are members of the Biomedical Imaging Group).
+*J. Darbon, A. Cunha, T. F. Chan, S. Osher, and G. J. Jensen, “Fast nonlocal filtering applied to electron cryomicroscopy,” in 2008 5th IEEE International Symposium on Biomedical Imaging: From Nano to Macro, 2008, pp. 1331–1334.*
 
-Fore more information please visit http://fiji.sc/Non_Local_Means_Denoise
+Fore more information please visit:
+http://fiji.sc/Non_Local_Means_Denoise
+
 

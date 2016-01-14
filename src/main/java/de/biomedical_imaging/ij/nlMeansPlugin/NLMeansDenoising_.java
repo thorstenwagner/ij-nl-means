@@ -442,15 +442,19 @@ public class NLMeansDenoising_ implements PlugInFilter {
 
         for (int y = 0; y < heightE; y++) {
             int yr = y - w - n + ystart;
+            
+//            if (yr >= orgHeight) yr = (ystart - w - n) + yr - orgHeight;
+            if (yr >= orgHeight) yr = yr - orgHeight;
             if (yr < 0) yr = height + yr;
             
-            if (yr >= orgHeight) yr = (ystart - w - n) + yr - orgHeight;
+            
             int offset = y * widthE;
             int offsetr = yr * orgWidth;
             for (int x = 0; x < widthE; x++) {
                 int xr = x + (xstart - w - n);
+//                if (xr >= orgWidth) xr = xstart + xr - orgWidth;
+                if (xr >= orgWidth) xr = xr - orgWidth;
                 if (xr < 0) xr = width + xr;
-                if (xr >= orgWidth) xr = xstart + xr - orgWidth;
                 for (int d = 0; d < dim; d++) {
                     result[d][offset + x] = image[d][offsetr + xr];
                 }
