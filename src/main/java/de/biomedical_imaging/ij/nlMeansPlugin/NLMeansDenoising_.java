@@ -69,8 +69,10 @@ public class NLMeansDenoising_ implements PlugInFilter {
     private int constantSigma = 15; // Standard-Value for Sigma
     private int smoothingFactor = 1;
     private int[] usedSigmas; //Saves the used sigmas when processing stacks..
+    
     @Override
     public int setup(String arg, ImagePlus imp) {
+    	
     	if (arg.equals("final")) {
     		//Save used sigmas
     		String sigmas = "" + usedSigmas[0];
@@ -99,6 +101,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
         smoothingFactor = (int)gd.getNextNumber();
         autoEstimate = gd.getNextBoolean();
         usedSigmas = new int[imp.getNSlices()*imp.getNFrames()];
+        
         return IJ.setupDialog(imp, DOES_ALL+FINAL_PROCESSING);
     }
     
@@ -106,25 +109,35 @@ public class NLMeansDenoising_ implements PlugInFilter {
     public void run(ImageProcessor ip) {
         int sigma = constantSigma;
         if (autoEstimate) {
-            sigma = (int)getGlobalNoiseLevel(new ImagePlus(null, ip));
+            sigma = (int)getGlobalNoiseLevel(ip);
         } 
         usedSigmas[ip.getSliceNumber()-1] =sigma; 
         sigma = smoothingFactor*sigma;
         
+        applyNonLocalMeans(ip, sigma);
+   
+    }
+    
+    /**
+     * 
+     * @param ip Image which should be denoised
+     * @param sigma Estimated standard deviation of noise
+     * @param imageType Type of image (e.g. ImagePlus.Gray8 etc.)
+     */
+    public void applyNonLocalMeans(ImageProcessor ip, int sigma){
         initSettings(sigma, ip);
         
-//        double sig = estimateImageNoise(imp, 10);
-//        IJ.showMessage(sig + "");
-        
         try {
-            int width = 512;
-            int height = 512;
-            double[][] result = NLMeansDenoising(ip, width, height);
-            createPicture(result, ip);
+          int width = 512;
+          int height = 512;
+          double[][] result = NLMeansDenoising(ip, width, height);
+          createPicture(result, ip);
         } catch (InterruptedException e) {
-        //    IJ.showMessage("Error while computing Denoised Image.");
-        }
+    	  e.printStackTrace();
+      //    IJ.showMessage("Error while computing Denoised Image.");
+      }
     }
+
     
     private double[][] NLMeansDenoising(ImageProcessor ip, int windowWidth, 
             int windowHeight) throws InterruptedException {
@@ -494,28 +507,25 @@ public class NLMeansDenoising_ implements PlugInFilter {
       * @param imp
       * @return noise level
       */
-    public static double getGlobalNoiseLevel(ImagePlus imp){
+    public static double getGlobalNoiseLevel(ImageProcessor ip){
         FloatProcessor fp = null;
-        switch(imp.getType()) {
+        
+        switch(ip.getBitDepth()) {
             
-            case ImagePlus.COLOR_256:
-                ByteProcessor bp = (ByteProcessor) imp.getProcessor();
+            case 8:
+                ByteProcessor bp = (ByteProcessor)ip;
                 fp = bp.duplicate().convertToFloatProcessor();
                 break;
-            case ImagePlus.COLOR_RGB:
-                ColorProcessor cp = (ColorProcessor) imp.getProcessor();
+            case 24:
+                ColorProcessor cp = (ColorProcessor)ip;
                 fp = cp.duplicate().convertToFloatProcessor();
                 break;
-            case ImagePlus.GRAY16:
-                ShortProcessor sp = (ShortProcessor) imp.getProcessor();
+            case 16:
+                ShortProcessor sp = (ShortProcessor)ip;
                 fp = sp.duplicate().convertToFloatProcessor();
                 break;
-            case ImagePlus.GRAY32:
-                fp = (FloatProcessor) imp.getProcessor().duplicate();
-                break;
-            case ImagePlus.GRAY8:
-                bp = (ByteProcessor) imp.getProcessor();
-                fp = bp.duplicate().convertToFloatProcessor();
+            case 32:
+                fp = (FloatProcessor) ip.duplicate();
                 break;
             default:
                 break; 
@@ -752,24 +762,20 @@ public class NLMeansDenoising_ implements PlugInFilter {
      * @param ip 
      */
     private void createPicture(double[][] image, ImageProcessor ip) {
-        int type = imp.getType();
-        
-        switch(type) {
+    	
+        switch(ip.getBitDepth()) {
             
-            case ImagePlus.COLOR_256:
-                createPictureColor256(image, ip);
+            case 8:
+            	createPicture8Bit(image, ip);
                 break;
-            case ImagePlus.COLOR_RGB:
-                createPictureRGB(image, ip);
+            case 24:
+                createPicture24Bit(image, ip);
                 break;
-            case ImagePlus.GRAY16:
-                createPictureGray16(image, ip);
+            case 16:
+                createPicture16Bit(image, ip);
                 break;
-            case ImagePlus.GRAY32:
-                createPictureGray32(image, ip);
-                break;
-            case ImagePlus.GRAY8:
-                createPictureGray8(image, ip);
+            case 32:
+                createPicture32Bit(image, ip);
                 break;
             default:
                 break; 
@@ -782,24 +788,9 @@ public class NLMeansDenoising_ implements PlugInFilter {
         
     }
     
-    private void createPictureColor256(double[][] image, ImageProcessor ip) {
-//        impNew = imp.createImagePlus();
-//        impNew.setProcessor(imp.getProcessor().duplicate());
-        byte[] pixelsPicture = (byte[])ip.getPixels();
-        
-        for (int y = 0; y < height; y++) {
-            int offset = y*width;
-            for (int x = 0; x < width; x++) {
-                int pos = offset + x;
-                byte pixel = (byte)(image[0][pos]);
-                pixelsPicture[pos] = pixel;
-            }
-        }
-        
-        ip.setPixels(pixelsPicture);
-    }
+  
     
-    private void createPictureRGB(double[][] image, ImageProcessor ip) {
+    private void createPicture24Bit(double[][] image, ImageProcessor ip) {
 //        impNew = imp.createImagePlus();
 //        impNew.setProcessor(imp.getProcessor().duplicate());
         int[] pixelsPicture = (int[])ip.getPixels();
@@ -820,7 +811,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
         ip.setPixels(pixelsPicture);
     }
     
-    private void createPictureGray32(double[][] image, ImageProcessor ip) {
+    private void createPicture32Bit(double[][] image, ImageProcessor ip) {
 //        impNew = imp.createImagePlus();
 //        impNew.setProcessor(imp.getProcessor().duplicate());
         float[] pixelsPicture = (float[])ip.getPixels();
@@ -837,7 +828,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
         ip.setPixels(pixelsPicture);
     }
     
-    private void createPictureGray16(double[][] image, ImageProcessor ip) {
+    private void createPicture16Bit(double[][] image, ImageProcessor ip) {
 //        impNew = imp.createImagePlus();
 //        impNew.setProcessor(imp.getProcessor().duplicate());
         short[] pixelsPicture = (short[])ip.getPixels();
@@ -854,7 +845,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
         ip.setPixels(pixelsPicture);
     }
     
-    private void createPictureGray8(double[][] image, ImageProcessor ip) {
+    private void createPicture8Bit(double[][] image, ImageProcessor ip) {
 //        ImagePlus impNew = imp.createImagePlus();
 //        impNew.setProcessor(imp.getProcessor().duplicate());
         byte[] pixelsPicture = (byte[])ip.getPixels();

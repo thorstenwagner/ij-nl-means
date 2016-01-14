@@ -30,6 +30,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
    	 		<artifactId>ij</artifactId>
   	 		<version>1.50e</version>
 		</dependency>
+		<dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+    		<version>4.12</version>
+		</dependency>
 	</dependencies>
 	<developers>
 		<developer>
