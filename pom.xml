@@ -46,7 +46,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			</properties>
 		</developer>
 		<developer>
-			<id>twagner</id>
+			<id>pbehnel</id>
 			<name>Pascal Behnel</name>
 			<email>pascal.behnel@googlemail.com></email>
 			<organization>University of Applied Sciences and Arts Dortmund</organization>
