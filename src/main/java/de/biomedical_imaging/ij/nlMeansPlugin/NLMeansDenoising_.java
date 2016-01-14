@@ -15,22 +15,6 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 package de.biomedical_imaging.ij.nlMeansPlugin;
-/**
- * Non local means filter for ImageJ
- * Copyright (C) 2013  Pascal Behnel & Thorsten Wagner
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
-*/
 
 import ij.IJ;
 import ij.ImagePlus;
@@ -133,13 +117,10 @@ public class NLMeansDenoising_ implements PlugInFilter {
 //        IJ.showMessage(sig + "");
         
         try {
-            long start = System.nanoTime();
             int width = 512;
             int height = 512;
             double[][] result = NLMeansDenoising(ip, width, height);
             createPicture(result, ip);
-            long end = System.nanoTime();
-      //      IJ.showMessage("Computation Time: " + ((end - start) / 1000000000.0) + "s");
         } catch (InterruptedException e) {
         //    IJ.showMessage("Error while computing Denoised Image.");
         }
@@ -194,7 +175,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
 
     /**
      * Multi Threaded Implementation of the Non-local Means Algorithm.
-     * This accelerated Version is based off of: Darbon, Jérôme, et al. 
+     * This accelerated Version is based of: Darbon, Jérôme, et al. 
      * "Fast nonlocal filtering applied to electron cryomicroscopy." 
      * Biomedical Imaging: From Nano to Macro, 2008. ISBI 2008. 
      * 5th IEEE International Symposium on. IEEE, 2008.
@@ -350,8 +331,8 @@ public class NLMeansDenoising_ implements PlugInFilter {
      */
     private int computeWeight(long[][] S, int widthE, int x, int y, int precision) {
         double distance = computeDistance(S, widthE, x, y);
-
-        double exp = FastMathStuff.max(distance-sigma2, 0.0);
+       
+        double exp = Math.max(distance-sigma2, 0.0);
         
 //        exp /= h2;
 //        double weight = Math.exp(-exp);
