@@ -159,7 +159,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
 //                        Runtime.getRuntime().availableProcessors(), imagePartWidth, 
 //                        imagePartHeight);
                 double[][] partResult = NLMeansMultithreadInstance(imagePartE, 
-                        1, imagePartWidth, 
+                		Runtime.getRuntime().availableProcessors(), imagePartWidth, 
                         imagePartHeight);
                 
                 // save Partial Result in Image
