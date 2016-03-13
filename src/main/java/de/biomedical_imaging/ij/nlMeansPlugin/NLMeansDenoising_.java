@@ -532,7 +532,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
         }
 
         Convolver convolver = new Convolver();
-        float[] kernel = {1,-2,1,-2,4,-2,1,-2,1};
+        float[] kernel = generateKernel(4);//{1,-2,1,-2,4,-2,1,-2,1};
         convolver.convolve(fp, kernel, 3, 3);
 
         int w = fp.getWidth();
@@ -547,6 +547,31 @@ public class NLMeansDenoising_ implements PlugInFilter {
         double sigma = Math.sqrt(Math.PI/2)*1.0/(6.0*(w-2)*(h-2))*sum;
 
         return sigma;
+    }
+    
+    public static float[] generateKernel(int k){
+    	int n = 2*k+1;
+    	int zeroBetween = k-1;
+    	int zeroRowsBetween = k-1;
+    	int[] firstAndLastRow = {1,-2,1};
+    	int[] middleRow = {-2,4,-2};
+    	float[] kernel = new float[n*n];
+    	
+    	//Set all zero
+    	for(int i = 0; i < n*n; i++){
+    		kernel[i] = 0;
+    	}
+    	kernel[0] = 1;
+    	kernel[k] = -2;
+    	kernel[2*k] = 1;
+    	kernel[k*n] = -2;
+    	kernel[k*n+k] = 4;
+    	kernel[k*n+2*k] = -2;
+    	kernel[2*k*n] = 1;
+    	kernel[2*k*n+k] = -2;
+    	kernel[2*k*n+2*k] = 1;
+    	return kernel;
+    	
     }
     
     
