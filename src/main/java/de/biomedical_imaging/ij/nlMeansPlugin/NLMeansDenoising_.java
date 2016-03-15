@@ -532,29 +532,26 @@ public class NLMeansDenoising_ implements PlugInFilter {
         }
 
         Convolver convolver = new Convolver();
-        float[] kernel = generateKernel(4);//{1,-2,1,-2,4,-2,1,-2,1};
-        convolver.convolve(fp, kernel, 3, 3);
-
+        int k = 6;
+        float[] kernel = generateKernel(k);//{1,-2,1,-2,4,-2,1,-2,1};
+        convolver.convolve(fp, kernel, 2*k+1, 2*k+1);
+        
         int w = fp.getWidth();
         int h = fp.getHeight();
         double sum = 0;
-
-        for(int x = 1; x < (w-1); x++){
-            for(int y = 1; y < (h-1); y++){
+        double sub = 2*k;
+        for(int x = 0; x < w; x++){
+            for(int y = 0; y < h; y++){
                 sum += Math.abs(fp.getPixelValue(x, y));
             }
         }
-        double sigma = Math.sqrt(Math.PI/2)*1.0/(6.0*(w-2)*(h-2))*sum;
-
+        double sigma = Math.sqrt(Math.PI/2)*1.0/(6.0*(w-sub)*(h-sub))*sum;
+      
         return sigma;
     }
     
     public static float[] generateKernel(int k){
     	int n = 2*k+1;
-    	int zeroBetween = k-1;
-    	int zeroRowsBetween = k-1;
-    	int[] firstAndLastRow = {1,-2,1};
-    	int[] middleRow = {-2,4,-2};
     	float[] kernel = new float[n*n];
     	
     	//Set all zero
@@ -570,6 +567,7 @@ public class NLMeansDenoising_ implements PlugInFilter {
     	kernel[2*k*n] = 1;
     	kernel[2*k*n+k] = -2;
     	kernel[2*k*n+2*k] = 1;
+    
     	return kernel;
     	
     }
